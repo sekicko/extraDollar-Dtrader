@@ -1,10 +1,8 @@
 const path = require('path');
 const { ALIASES, IS_RELEASE, MINIMIZERS, plugins, rules } = require('./constants');
-const { openChromeBasedOnPlatform } = require('./helpers');
 
 module.exports = function (env) {
     const base = env && env.base && env.base !== true ? `/${env.base}/` : '/';
-    const sub_path = env && env.open && env.open !== true ? env.open : '';
 
     return {
         context: path.resolve(__dirname, '../src'),
@@ -13,12 +11,7 @@ module.exports = function (env) {
                 publicPath: base,
                 watch: true,
             },
-            open: {
-                app: {
-                    name: openChromeBasedOnPlatform(process.platform),
-                },
-                target: sub_path,
-            },
+            open: false,
             host: 'localhost',
             server: 'https',
 
