@@ -80,13 +80,15 @@ git push origin master
 
 In Vercel dashboard, set:
 
-| Setting              | Value                |
-| -------------------- | -------------------- |
-| **Framework**        | `Other` (Monorepo)   |
-| **Build Command**    | `npm run build:all`  |
-| **Output Directory** | `packages/core/dist` |
-| **Node Version**     | `20.x`               |
-| **Install Command**  | `npm run bootstrap`  |
+| Setting              | Value                                |
+| -------------------- | ------------------------------------ |
+| **Framework**        | `Other` (Monorepo)                   |
+| **Build Command**    | `npm run build:all`                  |
+| **Output Directory** | `packages/core/dist`                 |
+| **Node Version**     | `20.x`                               |
+| **Install Command**  | `npm ci --omit=dev --ignore-scripts` |
+
+**❗ Important:** Use `--ignore-scripts` to skip husky installation!
 
 ### Step 4: Configure Environment Variables
 
@@ -154,7 +156,7 @@ Production Branch: master
 ```
 Build Command:    npm run build:all
 Output Directory: packages/core/dist
-Install Command:  npm run bootstrap
+Install Command:  npm ci --omit=dev --ignore-scripts
 Node.js Version:  20.x
 ```
 
@@ -214,6 +216,19 @@ npm run build:all
 # Check dependencies
 npm run bootstrap
 ```
+
+### Issue 1.5: "husky: command not found" Error
+
+**This happens because Vercel tries to run `husky install` during npm install.**
+
+**Fix in Vercel:**
+Change the **Install Command** to:
+
+```
+npm ci --omit=dev --ignore-scripts
+```
+
+This skips the prepare script that installs husky.
 
 ### Issue 2: Translation CDN 404 Error
 
