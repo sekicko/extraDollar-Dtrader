@@ -93,19 +93,23 @@ In Vercel dashboard, set:
 Click **"Environment Variables"** and add:
 
 ```
-CROWDIN_URL=https://crowdin-api.example.com
-R2_PROJECT_NAME=derivatives-trader
-CROWDIN_BRANCH_NAME=main
 NODE_ENV=production
 ```
 
-**Optional - Add these if using translations:**
+**Optional - Only add these if you have translation/customization needs:**
 
 ```
-CROWDIN_API_KEY=your_key_here
-R2_ACCESS_KEY_ID=your_key_here
-R2_SECRET_ACCESS_KEY=your_key_here
+CROWDIN_URL=https://translations.deriv.com
+R2_PROJECT_NAME=derivatives-trader
+CROWDIN_BRANCH_NAME=main
 ```
+
+**❗ Important Notes:**
+
+- **You DON'T need Crowdin credentials** unless customizing translations
+- **NODE_ENV=production** is the only **required** variable
+- The app will work fine with just `NODE_ENV=production`
+- Translation system has built-in defaults if variables are missing
 
 ### Step 5: Configure Custom Domain
 
@@ -157,10 +161,15 @@ Node.js Version:  20.x
 ### Environment Variables (Production)
 
 ```
-CROWDIN_URL=https://crowdin-api.example.com
+NODE_ENV=production
+```
+
+**Optional (for translations):**
+
+```
+CROWDIN_URL=https://translations.deriv.com
 R2_PROJECT_NAME=derivatives-trader
 CROWDIN_BRANCH_NAME=main
-NODE_ENV=production
 ```
 
 ### Custom Domain
@@ -208,17 +217,15 @@ npm run bootstrap
 
 ### Issue 2: Translation CDN 404 Error
 
-**Fix in Vercel:**
+**This is NOT a problem!** The app works fine without custom translations.
+
+**If you want to fix it (optional):**
 
 ```
-Set: CROWDIN_URL=https://your-crowdin-url
+Set: CROWDIN_URL=https://translations.deriv.com
 ```
 
-Or update `.env`:
-
-```
-CROWDIN_URL=https://crowdin-api.example.com
-```
+Or just skip - the app has built-in English defaults.
 
 ### Issue 3: API Connection Fails (WebSocket Errors)
 
@@ -283,6 +290,11 @@ npm run build:all   # Build locally
 npm run test:jest   # Run tests
 git push origin     # Push to GitHub
 ```
+
+**Environment Variables to Set in Vercel:**
+
+- `NODE_ENV=production` (required)
+- Translation variables (optional)
 
 ### Vercel Auto-Deploys
 
