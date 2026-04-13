@@ -26,7 +26,7 @@ Expected output:
 
 Your project is already configured for Vercel with:
 
-- **`vercel.json`** - Standard Vercel config (routes only)
+- **`vercel.json`** - SPA routing configuration (rewrites all routes to index.html)
 - **`vercel.dr.json`** - Custom build config (what you'll use)
 
 **Choose ONE based on your need:**
@@ -256,7 +256,7 @@ Or just skip - the app has built-in English defaults.
 
 ```json
 {
-    "routes": [{ "handle": "filesystem" }, { "src": "/(.*)", "dest": "/index.html" }]
+    "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }]
 }
 ```
 
